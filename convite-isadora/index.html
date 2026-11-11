@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cerimônia de Bênçãos da Isadora</title>
+<meta name="description" content="Convite: Cerimônia de Bênçãos da Isadora — 15 de novembro às 10h20, Igreja Batista Betel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fcf7f6;
+    --arch:#fbeeed;
+    --rose:#d98a8f;
+    --rose-deep:#c4686f;
+    --rose-soft:#eab9bc;
+    --text:#8c7060;
+    --text-strong:#7a5f50;
+    --leaf:#a9a58b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%;background:var(--bg)}
+  body{
+    font-family:'Montserrat',system-ui,sans-serif;
+    color:var(--text);
+    display:flex;justify-content:center;
+    overflow-x:hidden;
+  }
+  .stage{
+    position:relative;
+    width:min(100%,520px);
+    min-height:100vh;
+    min-height:100svh;
+    padding:clamp(28px,6vh,64px) 0 clamp(24px,5vh,48px);
+    display:flex;flex-direction:column;align-items:center;
+    isolation:isolate;
+  }
+  /* arco */
+  .arch{
+    position:absolute;z-index:-1;
+    left:5%;right:5%;top:17%;bottom:0;
+    background:linear-gradient(180deg,#fbe9e8 0%,#fcf1f0 55%,#fcf6f5 100%);
+    border-radius:999px 999px 0 0;
+    transform-origin:50% 100%;
+    animation:archIn 1.4s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes archIn{from{opacity:0;transform:scaleY(.6)}to{opacity:1;transform:none}}
+
+  /* cruz */
+  .cross{width:clamp(120px,32vw,170px);height:auto;overflow:visible;margin-bottom:clamp(14px,3vh,28px)}
+  .cross .bar{stroke:var(--rose-soft);stroke-width:5;stroke-linecap:round;fill:none;
+    stroke-dasharray:300;stroke-dashoffset:300;animation:draw 1.4s .2s cubic-bezier(.6,.1,.2,1) forwards}
+  .cross .bar.h{animation-delay:.9s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .sway{transform-origin:50% 60%;animation:sway 6s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
+  .bloom{opacity:0;transform-box:fill-box;transform-origin:center;animation:bloom .9s cubic-bezier(.3,1.6,.5,1) forwards}
+  @keyframes bloom{from{opacity:0;transform:scale(0) rotate(-90deg)}to{opacity:1;transform:none}}
+  .leaf{opacity:0;transform-box:fill-box;transform-origin:0% 100%;animation:leaf .9s ease-out forwards}
+  @keyframes leaf{from{opacity:0;transform:scale(0) rotate(-30deg)}to{opacity:1;transform:none}}
+
+  /* textos */
+  .kicker{
+    font-size:clamp(20px,5.2vw,28px);font-weight:400;letter-spacing:.04em;
+    color:var(--text);text-align:center;
+  }
+  .name{
+    font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;
+    font-size:clamp(84px,23vw,132px);line-height:1.05;letter-spacing:-.02em;
+    text-align:center;margin-top:2px;
+    color:#c9757c;
+    cursor:default;user-select:none;
+    display:flex;justify-content:center;
+  }
+  .ch{
+    display:inline-block;will-change:transform;
+  }
+  .kin{display:inline-block;opacity:0;transform:translateY(.9em) rotate(6deg) scale(.7);filter:blur(10px);
+    animation:kin 1.1s cubic-bezier(.2,1.2,.3,1) forwards}
+  @keyframes kin{to{opacity:1;transform:none;filter:blur(0)}}
+  .wave{display:inline-block;animation:wave 4.2s ease-in-out infinite}
+  @keyframes wave{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-.06em) rotate(-1.5deg)}}
+
+  .divider{display:flex;align-items:center;gap:14px;margin:clamp(10px,2vh,18px) 0 clamp(18px,3.5vh,32px)}
+  .divider i{display:block;height:1px;width:clamp(60px,18vw,100px);background:var(--rose-soft);
+    transform:scaleX(0);animation:grow 1s 1.8s ease-out forwards}
+  .divider i:first-child{transform-origin:100% 50%}
+  .divider i:last-child{transform-origin:0 50%}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .divider svg{width:30px;height:30px;animation:spin 14s linear infinite;opacity:0;animation:spin 14s linear infinite,fade .8s 1.7s forwards}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes fade{to{opacity:1}}
+
+  .lead{
+    max-width:30ch;text-align:center;
+    font-size:clamp(16px,4.2vw,21px);line-height:1.55;font-weight:400;
+    padding:0 6px;
+  }
+  .lead strong{font-weight:600}
+  .w{display:inline-block;opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* cartão */
+  .card{
+    margin:clamp(22px,4vh,38px) 0 clamp(20px,3.5vh,34px);
+    width:min(86%,440px);
+    border:1px solid var(--rose-soft);border-radius:26px;
+    padding:clamp(20px,3.6vw,30px) clamp(20px,5vw,40px);
+    background:rgba(255,255,255,.22);
+    display:grid;gap:18px;
+    opacity:0;transform:translateY(24px) scale(.97);
+    animation:card 1s 3s cubic-bezier(.2,.9,.3,1.1) forwards;
+    position:relative;overflow:hidden;
+  }
+  .card::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%);
+    transform:translateX(-120%);animation:shine 5s 4.2s ease-in-out infinite;pointer-events:none;
+  }
+  @keyframes shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+  @keyframes card{to{opacity:1;transform:none}}
+  .row{display:flex;gap:18px;align-items:flex-start}
+  .row svg{flex:0 0 auto;width:30px;height:30px;margin-top:2px;stroke:var(--rose);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .when{font-size:clamp(20px,5.4vw,26px);font-weight:600;color:var(--text-strong);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .when em{font-style:normal;width:1px;height:1.1em;background:var(--text)}
+  .where b{display:block;font-size:clamp(17px,4.6vw,22px);font-weight:500;color:var(--text-strong);letter-spacing:.02em}
+  .where span{font-size:clamp(14px,3.9vw,19px);font-weight:300;letter-spacing:.02em}
+
+  .bless{
+    font-style:italic;font-weight:300;font-size:clamp(17px,4.5vw,22px);letter-spacing:.04em;
+    text-align:center;
+  }
+  .branch{width:clamp(180px,50vw,270px);margin-top:clamp(16px,3vh,28px)}
+
+  /* pétalas */
+  .petals{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+  .petal{
+    position:absolute;top:-6vh;width:var(--s);height:calc(var(--s)*1.3);
+    background:radial-gradient(ellipse at 30% 30%,#fbd3d4,#eea3a8);
+    border-radius:80% 0 80% 0;opacity:.0;
+    animation:fall var(--d) linear var(--delay) infinite;
+  }
+  @keyframes fall{
+    0%{transform:translate3d(0,-6vh,0) rotate(0);opacity:0}
+    8%{opacity:.75}
+    50%{transform:translate3d(var(--x1),55vh,0) rotate(200deg)}
+    92%{opacity:.6}
+    100%{transform:translate3d(var(--x2),108vh,0) rotate(420deg);opacity:0}
+  }
+
+  /* botão de música */
+  .music{
+    position:fixed;right:16px;bottom:16px;z-index:10;
+    width:48px;height:48px;border-radius:50%;
+    border:1px solid var(--rose-soft);background:rgba(255,255,255,.75);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:grid;place-items:center;cursor:pointer;
+    box-shadow:0 4px 16px rgba(196,104,111,.18);
+    opacity:0;animation:fade .8s 3.4s forwards;
+  }
+  .music svg{width:22px;height:22px;stroke:var(--rose-deep);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .music .off{display:none}
+  .music[aria-pressed="false"] .on{display:none}
+  .music[aria-pressed="false"] .off{display:block}
+  .music.hint::after{
+    content:"";position:absolute;inset:-6px;border-radius:50%;
+    border:1px solid var(--rose-soft);animation:ping 2s ease-out infinite;
+  }
+  @keyframes ping{from{transform:scale(.85);opacity:.9}to{transform:scale(1.35);opacity:0}}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
+    .petals{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<button class="music hint" id="music" type="button" aria-pressed="false" aria-label="Tocar música">
+  <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+  <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
+</button>
+
+<main class="stage">
+  <div class="arch"></div>
+
+  <!-- Cruz com flores -->
+  <svg class="cross" viewBox="0 0 200 260" aria-hidden="true">
+    <path class="bar" d="M100 0 V250"/>
+    <path class="bar h" d="M10 88 H190"/>
+    <g class="sway">
+      <!-- galho superior direito -->
+      <path d="M104 100 C118 80 134 66 150 58" stroke="#a9a58b" stroke-width="1.2" fill="none"/>
+      <g class="leaf" style="animation-delay:1.7s"><path d="M108 94 C95 90 88 78 82 70 C96 70 106 80 108 94Z" fill="#b9b69d"/></g>
+      <g class="leaf" style="animation-delay:1.9s"><path d="M130 72 C140 62 156 62 164 70 C152 78 140 78 130 72Z" fill="#b9b69d"/></g>
+      <g class="bloom" style="animation-delay:2.1s">
+        <g transform="translate(122 80)" fill="#f2b0b4">
+          <circle cx="0" cy="-9" r="7"/><circle cx="9" cy="-3" r="7"/><circle cx="5" cy="8" r="7"/><circle cx="-5" cy="8" r="7"/><circle cx="-9" cy="-3" r="7"/>
+          <circle r="3.5" fill="#e07f86"/>
+        </g>
+      </g>
+      <g class="bloom" style="animation-delay:2.4s"><circle cx="152" cy="56" r="4" fill="#f0a3a8"/><circle cx="162" cy="50" r="3" fill="#f6c0c3"/><circle cx="144" cy="50" r="2.5" fill="#f6c0c3"/></g>
+      <!-- galho inferior esquerdo -->
+      <path d="M96 140 C84 160 74 176 62 196" stroke="#a9a58b" stroke-width="1.2" fill="none"/>
+      <g class="leaf" style="animation-delay:2s"><path d="M92 150 C102 142 116 144 122 152 C110 160 98 158 92 150Z" fill="#b9b69d"/></g>
+      <g class="leaf" style="animation-delay:2.2s"><path d="M70 188 C66 176 70 164 78 158 C84 170 80 182 70 188Z" fill="#b9b69d"/></g>
+      <g class="bloom" style="animation-delay:2.4s">
+        <g transform="translate(84 128)" fill="#f2b0b4">
+          <circle cx="0" cy="-9" r="7"/><circle cx="9" cy="-3" r="7"/><circle cx="5" cy="8" r="7"/><circle cx="-5" cy="8" r="7"/><circle cx="-9" cy="-3" r="7"/>
+          <circle r="3.5" fill="#e07f86"/>
+        </g>
+      </g>
+      <g class="bloom" style="animation-delay:2.7s"><circle cx="58" cy="198" r="3.5" fill="#f0a3a8"/><circle cx="52" cy="190" r="2.5" fill="#f6c0c3"/></g>
+    </g>
+  </svg>
+
+  <p class="kicker" id="kicker">Cerimônia de Bênçãos da</p>
+  <h1 class="name" id="name" aria-label="Isadora">Isadora</h1>
+
+  <div class="divider" aria-hidden="true">
+    <i></i>
+    <svg viewBox="-20 -20 40 40"><g fill="#f2b0b4"><circle cy="-9" r="7"/><circle cx="9" cy="-3" r="7"/><circle cx="5" cy="8" r="7"/><circle cx="-5" cy="8" r="7"/><circle cx="-9" cy="-3" r="7"/><circle r="3.6" fill="#e58a91"/></g></svg>
+    <i></i>
+  </div>
+
+  <p class="lead" id="lead">Com amor e gratidão, convidamos você para um momento especial: a apresentação da nossa pequena Isadora a <strong>Deus</strong>.</p>
+
+  <section class="card" aria-label="Data e local">
+    <div class="row">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="6" width="26" height="23" rx="4"/><path d="M3 13h26M10 3v6M22 3v6"/></svg>
+      <div class="when"><span>15 de novembro</span><em></em><span>10h20</span></div>
+    </div>
+    <div class="row">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 29C10 22 5 17.5 5 12.5a11 11 0 0 1 22 0C27 17.5 22 22 16 29Z"/><circle cx="16" cy="12.5" r="4"/></svg>
+      <div class="where"><b>Igreja Batista Betel</b><span>Rua Celso Piatti, 521 – Jaraguá</span></div>
+    </div>
+  </section>
+
+  <p class="bless" id="bless">Sua presença será uma bênção!</p>
+
+  <svg class="branch" viewBox="0 0 300 90" aria-hidden="true">
+    <g class="sway">
+      <path d="M10 28 C60 40 110 60 150 56 C200 52 240 38 290 30" stroke="#a9a58b" stroke-width="1.2" fill="none"/>
+      <path d="M30 34 C36 18 52 8 66 4 C66 20 52 30 30 34Z" fill="#b9b69d"/>
+      <path d="M70 50 C70 64 84 78 98 80 C100 66 88 54 70 50Z" fill="#b9b69d"/>
+      <path d="M190 54 C196 66 212 72 226 70 C222 58 208 52 190 54Z" fill="#b9b69d"/>
+      <g transform="translate(150 54)" fill="#f2b0b4"><circle cy="-11" r="9"/><circle cx="11" cy="-3" r="9"/><circle cx="7" cy="10" r="9"/><circle cx="-7" cy="10" r="9"/><circle cx="-11" cy="-3" r="9"/><circle r="4.5" fill="#e07f86"/></g>
+      <g fill="#f0a3a8"><circle cx="236" cy="38" r="4"/><circle cx="262" cy="30" r="3.5"/><circle cx="250" cy="22" r="3"/><circle cx="200" cy="50" r="3.5"/></g>
+    </g>
+  </svg>
+</main>
+
+<script>
+/* ---- Música: caixinha de música + pad suave, gerada no navegador ---- */
+(function(){
+  var btn = document.getElementById('music');
+  var ctx, master, verb, timer, step = 0, nextT = 0, playing = false, userMuted = false;
+  var BPM = 66, EIGHTH = 60 / BPM / 2;
+  var hz = function(m){ return 440 * Math.pow(2, (m - 69) / 12); };
+  // Cmaj7 | Am7 | Fmaj7 | G6
+  var chords = [[48,55,59,64],[45,52,55,60],[41,48,52,57],[43,50,59,64]];
+  var pattern = [0,1,2,3,2,1,3,2];
+  var tops = [76,79,81,84,79,76];
+
+  function impulse(sec){
+    var len = ctx.sampleRate * sec, buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for(var c=0;c<2;c++){ var d = buf.getChannelData(c);
+      for(var i=0;i<len;i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.6); }
+    return buf;
+  }
+  function init(){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return false;
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+    verb = ctx.createConvolver(); verb.buffer = impulse(3.2);
+    var vg = ctx.createGain(); vg.gain.value = 0.55; verb.connect(vg); vg.connect(master);
+    return true;
+  }
+  function bell(m, t, dur, vol){
+    var f = hz(m), g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    g.connect(master); g.connect(verb);
+    [[1,1],[2,0.22],[3.01,0.06]].forEach(function(p){
+      var o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f * p[0];
+      var og = ctx.createGain(); og.gain.value = p[1];
+      o.connect(og); og.connect(g); o.start(t); o.stop(t + dur + 0.05);
+    });
+  }
+  function pad(notes, t, dur){
+    notes.forEach(function(m){
+      [-5, 5].forEach(function(det){
+        var o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = hz(m); o.detune.value = det;
+        var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 800;
+        var g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(0.028, t + 1.6);
+        g.gain.linearRampToValueAtTime(0.0001, t + dur);
+        o.connect(lp); lp.connect(g); g.connect(master); g.connect(verb);
+        o.start(t); o.stop(t + dur + 0.05);
+      });
+    });
+  }
+  function schedule(){
+    while(nextT < ctx.currentTime + 0.6){
+      var pos = step % 8, ci = Math.floor((step % 32) / 8), ch = chords[ci];
+      if(pos === 0){
+        pad(ch, nextT, EIGHTH * 8 + 1.2);
+        var top = tops[(Math.floor(step / 8)) % tops.length];
+        bell(top, nextT + EIGHTH * 0.5, 2.6, 0.11);
+      }
+      bell(ch[pattern[pos]] + 12, nextT, 1.8, 0.075 + (pos % 2 ? 0 : 0.02));
+      nextT += EIGHTH; step++;
+    }
+  }
+  function start(){
+    if(!ctx && !init()) return;
+    ctx.resume();
+    nextT = ctx.currentTime + 0.15;
+    clearInterval(timer); timer = setInterval(schedule, 100); schedule();
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+    master.gain.linearRampToValueAtTime(0.55, ctx.currentTime + 2.5);
+    playing = true; btn.setAttribute('aria-pressed','true'); btn.setAttribute('aria-label','Pausar música');
+    btn.classList.remove('hint');
+  }
+  function stop(){
+    if(!ctx) return;
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+    master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+    setTimeout(function(){ if(!playing){ clearInterval(timer); ctx.suspend(); } }, 900);
+    playing = false; btn.setAttribute('aria-pressed','false'); btn.setAttribute('aria-label','Tocar música');
+  }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(playing){ userMuted = true; stop(); } else { userMuted = false; start(); }
+  });
+  // primeiro toque em qualquer lugar da página inicia a música (exigência dos navegadores)
+  function first(e){
+    if(e && e.target && btn.contains(e.target)) return;
+    window.removeEventListener('pointerdown', first); window.removeEventListener('keydown', first);
+    if(!playing && !userMuted && !ctx) start();
+  }
+  window.addEventListener('pointerdown', first); window.addEventListener('keydown', first);
+  document.addEventListener('visibilitychange', function(){
+    if(!ctx) return;
+    if(document.hidden){ if(playing) ctx.suspend(); } else if(playing){ ctx.resume(); }
+  });
+})();
+</script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Nome: letra por letra, com onda e repulsão do cursor ---- */
+  var nameEl = document.getElementById('name');
+  var text = nameEl.textContent;
+  nameEl.textContent = '';
+  var letters = [];
+  text.split('').forEach(function(c, i){
+    var outer = document.createElement('span');
+    outer.className = 'ch';
+    outer.setAttribute('aria-hidden','true');
+    var t = i/(text.length-1), pal = [[213,140,146],[191,106,114],[217,150,154]];
+    var seg = t < .5 ? 0 : 1, u = t < .5 ? t*2 : (t-.5)*2;
+    outer.style.color = 'rgb(' + [0,1,2].map(function(k){
+      return Math.round(pal[seg][k] + (pal[seg+1][k]-pal[seg][k])*u);
+    }).join(',') + ')';
+    var kin = document.createElement('span');
+    kin.className = 'kin';
+    kin.style.animationDelay = (0.9 + i*0.11) + 's';
+    var wave = document.createElement('span');
+    wave.className = 'wave';
+    wave.style.animationDelay = (i*0.25) + 's';
+    wave.textContent = c;
+    kin.appendChild(wave);
+    outer.appendChild(kin);
+    nameEl.appendChild(outer);
+    letters.push({el:outer,x:0,y:0,tx:0,ty:0,r:0});
+  });
+
+  /* ---- Kicker e texto: palavra por palavra ---- */
+  function splitWords(el, start, step){
+    var nodes = Array.prototype.slice.call(el.childNodes);
+    el.textContent = '';
+    var n = 0;
+    nodes.forEach(function(node){
+      var isStrong = node.nodeType === 1 && node.tagName === 'STRONG';
+      var words = node.textContent.split(/(\s+)/);
+      words.forEach(function(w){
+        if(!w) return;
+        if(/^\s+$/.test(w)){ el.appendChild(document.createTextNode(' ')); return; }
+        var s = document.createElement('span');
+        s.className = 'w';
+        s.style.animationDelay = (start + n*step) + 's';
+        s.textContent = w;
+        if(isStrong) s.style.fontWeight = 600;
+        el.appendChild(s);
+        n++;
+      });
+    });
+  }
+  splitWords(document.getElementById('kicker'), 0.4, 0.12);
+  splitWords(document.getElementById('lead'), 2.0, 0.07);
+  splitWords(document.getElementById('bless'), 3.8, 0.12);
+
+  /* ---- Interação: letras fogem do ponteiro/toque e voltam com mola ---- */
+  if(!reduce){
+    var px = -9999, py = -9999;
+    function move(x,y){ px = x; py = y; }
+    window.addEventListener('pointermove', function(e){ move(e.clientX, e.clientY); });
+    window.addEventListener('pointerdown', function(e){ move(e.clientX, e.clientY); });
+    window.addEventListener('pointerleave', function(){ px = py = -9999; });
+    window.addEventListener('pointerup', function(e){ if(e.pointerType==='touch'){ px = py = -9999; } });
+
+    function tick(){
+      letters.forEach(function(L){
+        var r = L.el.getBoundingClientRect();
+        var cx = r.left + r.width/2, cy = r.top + r.height/2;
+        var dx = cx - px, dy = cy - py;
+        var d = Math.sqrt(dx*dx + dy*dy);
+        var R = 130;
+        if(d < R){
+          var f = (1 - d/R);
+          L.tx = (dx/(d||1)) * f * 46;
+          L.ty = (dy/(d||1)) * f * 46;
+          L.tr = (dx>0?1:-1) * f * 22;
+        } else { L.tx = 0; L.ty = 0; L.tr = 0; }
+        L.x += (L.tx - L.x) * 0.14;
+        L.y += (L.ty - L.y) * 0.14;
+        L.r += ((L.tr||0) - L.r) * 0.14;
+        L.el.style.transform = 'translate('+L.x.toFixed(2)+'px,'+L.y.toFixed(2)+'px) rotate('+L.r.toFixed(2)+'deg)';
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    /* ---- Pétalas caindo ---- */
+    var box = document.getElementById('petals');
+    var count = window.innerWidth < 600 ? 12 : 18;
+    for(var i=0;i<count;i++){
+      var p = document.createElement('span');
+      p.className = 'petal';
+      var s = 9 + Math.random()*11;
+      p.style.left = (Math.random()*100) + 'vw';
+      p.style.setProperty('--s', s+'px');
+      p.style.setProperty('--d', (11 + Math.random()*10)+'s');
+      p.style.setProperty('--delay', (3 + Math.random()*12)+'s');
+      p.style.setProperty('--x1', (Math.random()*90-45)+'px');
+      p.style.setProperty('--x2', (Math.random()*160-80)+'px');
+      box.appendChild(p);
+    }
+  }
+})();
+</script>
+</body>
+</html>
